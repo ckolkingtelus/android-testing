@@ -61,7 +61,10 @@ public class NotesActivity extends AppCompatActivity {
         }
 
         if (null == savedInstanceState) {
-            initFragment(NotesFragment.newInstance());
+            NotesFragment notesFragment = NotesFragment.newInstance();
+            initFragment(notesFragment);
+            // CEK: I needed to break it apart - ie. I replaced the below with the 2 lines above
+//            initFragment(NotesFragment.newInstance());
         }
     }
 
