@@ -40,6 +40,7 @@ import static org.mockito.Mockito.verify;
  */
 public class NotesPresenterTest {
 
+    // CEK: mocked up list data...
     private static List<Note> NOTES = Lists.newArrayList(new Note("Title1", "Description1"),
             new Note("Title2", "Description2"));
 
@@ -58,6 +59,10 @@ public class NotesPresenterTest {
     @Captor
     private ArgumentCaptor<LoadNotesCallback> mLoadNotesCallbackCaptor;
 
+    //
+    // CEK:  interesting -- the class under test is instantiated in the following class data member,
+    // but there is no 'annotation' associated with this class variable (unlike..
+    // .. unlink other vars with "@Captor" and "@Mock" and "@Before" and "@Test".
     private NotesPresenter mNotesPresenter;
 
     @Before
@@ -78,7 +83,16 @@ public class NotesPresenterTest {
         mNotesPresenter.loadNotes(true);
 
         // Callback is captured and invoked with stubbed notes
+        // CEK: 1. verify (<class-with_method_to_call)
+        // CEK:   . <the-method-of-the-class>
+        // CEK:   ( arg = <the-captor-that-captures-the-method's-argument-used-in-the-class-under-test>
+        // CEK:        and captor's ".capture()" method )
+        // CEK: 2. then use the captured data (which is a 'callback function'):
+        // CEK:        call the callback function
+        // CEK:          with Mocked data "NOTES" from this Test class above.
+        // CEK 1:
         verify(mNotesRepository).getNotes(mLoadNotesCallbackCaptor.capture());
+        // CEK 2:
         mLoadNotesCallbackCaptor.getValue().onNotesLoaded(NOTES);
 
         // Then progress indicator is hidden and notes are shown in UI
