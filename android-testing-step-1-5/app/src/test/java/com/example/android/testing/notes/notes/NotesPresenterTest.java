@@ -81,6 +81,9 @@ public class NotesPresenterTest {
         // Given an initialized NotesPresenter with initialized notes
         // When loading of Notes is requested
         mNotesPresenter.loadNotes(true);
+        // CEK: since we're checking the 'loading' indicator is stopped at the end of this "Test"
+        // CEK:  then I want to test that it was started here:
+        verify(mNotesView).setProgressIndicator(true);
 
         // Callback is captured and invoked with stubbed notes
         // CEK: 1. verify (<class-with_method_to_call)
