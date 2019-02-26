@@ -109,10 +109,11 @@ public class NotesScreenTest {
     public void addNoteToNotesList() throws Exception {
 //        fail("Implement step 7");
         String newNoteTitle = "Espresso";
-//        String newNoteDescription = "UI testing for Android";  // fails - somewhere between
-                // typing this in as lower-case "t" and
+//        String newNoteDescription = "UI testing for Android";  // fails -
+                // ISSUE: somewhere between typing this in as lower-case "t" and
                 // then getting stored in the notes list it
                 // gets converted by the app or keyboard to be upper-case capital "T"
+                // TO DO:  must be the 'soft keyboard' that does conversion??
         String newNoteDescription = "UI Testing for Android";  // passes - note the capital letter "T"
 
         // Click on the add note button
@@ -120,6 +121,7 @@ public class NotesScreenTest {
 
         // Add note title and description
         // Type new note title
+        // CEK: ISSUE - TO DO: why does soft keyboard convert lower "t" to upper "T"? 
         onView(withId(R.id.add_note_title)).perform(typeText(newNoteTitle), closeSoftKeyboard());
         onView(withId(R.id.add_note_description)).perform(typeText(newNoteDescription),
                 closeSoftKeyboard()); // Type new note description and close the keyboard
@@ -130,13 +132,12 @@ public class NotesScreenTest {
         // Scroll notes list to added note, by finding its description
         onView(withId(R.id.notes_list)).perform(
 //// CEK: test fails;  test passes when change to newNoteTitle (Title, not Description)
-                scrollTo(hasDescendant(withText(newNoteDescription))));  // fails
-//        scrollTo(hasDescendant(withText("")))); // try "" blank since the notes details are showing nothing
+                scrollTo(hasDescendant(withText(newNoteDescription))));  // fails with "t", passes with "T"
 //        scrollTo(hasDescendant(withText(newNoteTitle))));  // passes
 
         // Verify note is displayed on screen
 //// CEK: test fails;  test passes when change to newNoteTitle (Title, not Description)
-        onView(withItemText(newNoteDescription)).check(matches(isDisplayed()));  // fails
+        onView(withItemText(newNoteDescription)).check(matches(isDisplayed()));  // fails with "t", passes with "T"
 //        onView(withItemText(newNoteTitle)).check(matches(isDisplayed()));  // passes
 
     }
