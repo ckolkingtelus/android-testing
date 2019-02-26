@@ -42,6 +42,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.testing.notes.R.id.note_detail_description;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -238,7 +239,7 @@ public class NotesFragment extends Fragment implements NotesContract.View {
                 super(itemView);
                 mItemListener = listener;
                 title = (TextView) itemView.findViewById(R.id.note_detail_title);
-                description = (TextView) itemView.findViewById(R.id.note_detail_description);
+                description = (TextView) itemView.findViewById(note_detail_description);
                 itemView.setOnClickListener(this);
             }
 

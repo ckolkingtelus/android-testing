@@ -109,7 +109,11 @@ public class NotesScreenTest {
     public void addNoteToNotesList() throws Exception {
 //        fail("Implement step 7");
         String newNoteTitle = "Espresso";
-        String newNoteDescription = "UI testing for Android";
+//        String newNoteDescription = "UI testing for Android";  // fails - somewhere between
+                // typing this in as lower-case "t" and
+                // then getting stored in the notes list it
+                // gets converted by the app or keyboard to be upper-case capital "T"
+        String newNoteDescription = "UI Testing for Android";  // passes - note the capital letter "T"
 
         // Click on the add note button
         onView(withId(R.id.fab_add_notes)).perform(click());
@@ -125,14 +129,15 @@ public class NotesScreenTest {
 
         // Scroll notes list to added note, by finding its description
         onView(withId(R.id.notes_list)).perform(
-//                scrollTo(hasDescendant(withText(newNoteDescription))));
-// CEK: test fails;  test passes when change to newNoteTitle (Title, not Description)
-        scrollTo(hasDescendant(withText(newNoteTitle))));
+//// CEK: test fails;  test passes when change to newNoteTitle (Title, not Description)
+                scrollTo(hasDescendant(withText(newNoteDescription))));  // fails
+//        scrollTo(hasDescendant(withText("")))); // try "" blank since the notes details are showing nothing
+//        scrollTo(hasDescendant(withText(newNoteTitle))));  // passes
 
         // Verify note is displayed on screen
-//        onView(withItemText(newNoteDescription)).check(matches(isDisplayed()));
-// CEK: test fails;  test passes when change to newNoteTitle (Title, not Description)
-        onView(withItemText(newNoteTitle)).check(matches(isDisplayed()));
+//// CEK: test fails;  test passes when change to newNoteTitle (Title, not Description)
+        onView(withItemText(newNoteDescription)).check(matches(isDisplayed()));  // fails
+//        onView(withItemText(newNoteTitle)).check(matches(isDisplayed()));  // passes
 
     }
 
